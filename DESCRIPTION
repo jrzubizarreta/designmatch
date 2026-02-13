@@ -1,7 +1,7 @@
 Package: designmatch
 Type: Package
 Title: Matched Samples that are Balanced and Representative by Design
-Version: 0.5.4.9000
+Version: 0.5.5
 Authors@R: c(
   person("Jose R.", "Zubizarreta", role = c("aut"), 
          email = "zubizarreta@hcp.med.harvard.edu",

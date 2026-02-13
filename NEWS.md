@@ -1,7 +1,7 @@
 *designmatch* News and Updates
 ======
 
-# *designmatch* (development version)
+# *designmatch* (0.5.5)
 
 * Added NEWS.md file.
 
