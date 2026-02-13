@@ -63,9 +63,9 @@ Optimization solver parameters: a list with four objects,
 }
 
 \references{
-Bennett, M., Vielma, J. P., & Zubizarreta, J. R. (2020). "Building Representative Matched Samples With Multi-Valued Treatments in Large Observational Studies". \emph{Journal of Computational and Graphical Statistics}, 1–29. \doi{10.1080/10618600.2020.1753532}
+Bennett, M., Vielma, J. P., & Zubizarreta, J. R. (2020). "Building Representative Matched Samples With Multi-Valued Treatments in Large Observational Studies". \emph{Journal of Computational and Graphical Statistics}, 1-29. \doi{10.1080/10618600.2020.1753532}
 
-Visconti, G., & Zubizarreta, J. R. (2018). "Handling Limited Overlap in Observational Studies with Cardinality Matching". \emph{Observational Studies}, 4(1), 217–249. \doi{10.1353/obs.2018.0012}
+Visconti, G., & Zubizarreta, J. R. (2018). "Handling Limited Overlap in Observational Studies with Cardinality Matching". \emph{Observational Studies}, 4(1), 217-249. \doi{10.1353/obs.2018.0012}
 
 	Zubizarreta, J. R. (2012), "Using Mixed Integer Programming for Matching in an Observational Study of Kidney Failure after Surgery," \emph{Journal of the American Statistical Association}, 107, 1360-1371.
 

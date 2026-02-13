@@ -28,7 +28,7 @@ Matching Before Randomization," \emph{Biostatistics}, 5, 263-275.
 
 	Keele, L., Titiunik, R., and Zubizarreta, J. R., (2015), "Enhancing a Geographic Regression Discontinuity Design Through Matching to Estimate the Effect of Ballot Initiatives on Voter Turnout," \emph{Journal of the Royal Statistical Society: Series A}, 178, 223-239.
 
-Kilcioglu, C., & Zubizarreta, J. R. (2016). "Maximizing the information content of a balanced matched sample in a study of the economic performance of green buildings". \emph{The Annals of Applied Statistics}, 10(4), 1997–2020. \doi{10.1214/16-AOAS962}
+Kilcioglu, C., & Zubizarreta, J. R. (2016). "Maximizing the information content of a balanced matched sample in a study of the economic performance of green buildings". \emph{The Annals of Applied Statistics}, 10(4), 1997-2020. \doi{10.1214/16-AOAS962}
 
 	Lu, B., Greevy, R., Xu, X., and Beck C. (2011), "Optimal Nonbipartite Matching and its Statistical Applications," \emph{The American Statistician}, 65, 21-30.
 
