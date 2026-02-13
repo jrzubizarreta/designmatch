@@ -62,7 +62,7 @@ Cohn, E. R., & Zubizarreta, J. R. (2022). "Profile Matching for the Generalizati
 }
 
 \author{
-	Eric R. Cohn <ericcohn@g.harvard.edu>, Jose R. Zubizarreta <zubizarreta@hcp.med.harvard.edu>, Cinar Kilcioglu <ckilcioglu16@gsb.columbia.edu>, Juan P. Vielma <jvielma@mit.edu>.
+	Eric R. Cohn, Jose R. Zubizarreta, Cinar Kilcioglu, Juan P. Vielma.
 }
 
 \seealso{

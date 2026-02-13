@@ -1,2 +1,14 @@
+^CRAN-RELEASE$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
+^CRANlogs$
+^_config\.yml
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^\.DS_Store$
+^CRAN-SUBMISSION$
+^\.lintr$

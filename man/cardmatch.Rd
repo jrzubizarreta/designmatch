@@ -73,7 +73,7 @@ Visconti, G., & Zubizarreta, J. R. (2018). "Handling Limited Overlap in Observat
 }
 
 \author{
-	Jose R. Zubizarreta <zubizarreta@hcp.med.harvard.edu>, Cinar Kilcioglu <ckilcioglu16@gsb.columbia.edu>, Juan P. Vielma <jvielma@mit.edu>.
+	Jose R. Zubizarreta, Cinar Kilcioglu, Juan P. Vielma.
 }
 
 \seealso{
