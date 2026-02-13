@@ -1,4 +1,7 @@
-# designmatch (development version)
+*designmatch* News and Updates
+======
+
+# *designmatch* (development version)
 
 * Added NEWS.md file.
 
