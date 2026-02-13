@@ -32,7 +32,7 @@
 }
 
 \references{
-	Love, T. (2004), "Graphical Display of Covariate Balance," \url{http://chrp.org/love/JSM2004RoundTableHandout.pdf}.
+	Love, T. (2004), "Displaying Covariate Balance After Adjustment for Selection Bias," \url{https://chrp.org/love/JSM_Aug11_TLove.pdf}.
 }
 
 \author{
