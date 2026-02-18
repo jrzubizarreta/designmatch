@@ -3,13 +3,13 @@ Type: Package
 Title: Matched Samples that are Balanced and Representative by Design
 Version: 0.5.5
 Authors@R: c(
-  person("Jose R.", "Zubizarreta", role = c("aut"), 
+  person("Jose R.", "Zubizarreta", role = c("aut", "cre"), 
          email = "zubizarreta@hcp.med.harvard.edu",
 	       comment = c(ORCID = "0000-0002-0322-147X")),
 	person("Cinar", "Kilcioglu", role = c("aut")),
 	person("Juan P.", "Vielma", role = c("aut")),
 	person("Eric R.", "Cohn", role = c("aut")),
-	person("Noah", "Greifer", role = c("ctb", "cre"),
+	person("Noah", "Greifer", role = c("ctb"),
 	       email = "noah.greifer@gmail.com",
 	       comment = c(ORCID = "0000-0003-3067-7154"))
   )
