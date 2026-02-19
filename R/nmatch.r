@@ -1,81 +1,77 @@
-nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
-                  mom = NULL,
-                  exact = NULL,
-                  near_exact = NULL,
-                  fine = NULL,
-                  near_fine = NULL,
-                  near = NULL,
-                  far = NULL,
-                  solver = NULL) {
+nmatch <- function(dist_mat, subset_weight = NULL, total_pairs = NULL,
+                   mom = NULL,
+                   exact = NULL,
+                   near_exact = NULL,
+                   fine = NULL,
+                   near_fine = NULL,
+                   near = NULL,
+                   far = NULL,
+                   solver = NULL) {
 
   if (is.null(mom)) {
-    mom_covs = NULL
-    mom_tols = NULL
-    mom_targets = NULL
-  } else {
-    mom_covs = mom$covs
-    mom_tols = mom$tols
-    mom_targets = mom$targets
+    mom <- list()
   }
+
+  mom_covs <- mom$covs
+  mom_tols <- mom$tols
+  mom_targets <- mom$targets
 
   if (is.null(exact)) {
-    exact_covs = NULL
-  } else {
-    exact_covs = exact$covs
+    exact <- list()
   }
+
+  exact_covs <- exact$covs
 
   if (is.null(near_exact)) {
-    near_exact_covs = NULL
-    near_exact_devs = NULL
-  } else {
-    near_exact_covs = near_exact$covs
-    near_exact_devs = near_exact$devs
+    near_exact <- list()
   }
+
+  near_exact_covs <- near_exact$covs
+  near_exact_devs <- near_exact$devs
 
   if (is.null(fine)) {
-    fine_covs = NULL
-  } else {
-    fine_covs = fine$covs
+    fine <- list()
   }
+
+  fine_covs <- fine$covs
 
   if (is.null(near_fine)) {
-    near_fine_covs = NULL
-    near_fine_devs = NULL
-  } else {
-    near_fine_covs = near_fine$covs
-    near_fine_devs = near_fine$devs
+    near_fine <- list()
   }
+
+  near_fine_covs <- near_fine$covs
+  near_fine_devs <- near_fine$devs
 
   if (is.null(near)) {
-    near_covs = NULL
-    near_pairs = NULL
-    near_groups = NULL
-  } else {
-    near_covs = near$covs
-    near_pairs = near$pairs
-    near_groups = near$groups
+    near <- list()
   }
+
+  near_covs <- near$covs
+  near_pairs <- near$pairs
+  near_groups <- near$groups
 
   if (is.null(far)) {
-    far_covs = NULL
-    far_pairs = NULL
-    far_groups = NULL
-  } else {
-    far_covs = far$covs
-    far_pairs = far$pairs
-    far_groups = far$groups
+    far <- list()
   }
 
+  far_covs <- far$covs
+  far_pairs <- far$pairs
+  far_groups <- far$groups
+
   if (is.null(solver)) {
-    t_max = 60 * 15
-    approximate = 1
-    solver = "highs"
-  } else {
-    t_max = solver$t_max
-    approximate = solver$approximate
-    trace = solver$trace
-    round_cplex = solver$round_cplex
-    solver = solver$name
+    solver <- list(t_max = 60 * 15,
+                   approximate = 1,
+                   name = "highs")
+  }
+
+  t_max <- solver$t_max
+  approximate <- solver$approximate
+  trace <- solver$trace
+  round_cplex <- solver$round_cplex
+  solver <- solver$name
+
+  if (is.null(subset_weight)) {
+    subset_weight = 0
   }
 
   message("  Building the matching problem...")
@@ -85,10 +81,6 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
 
   #! Total number of decision variables
   n_dec = (n_tot*(n_tot-1))-sum(1:(n_tot-1))
-
-  if (is.null(subset_weight)) {
-    subset_weight = 0
-  }
 
   #! cvec
   cvec = t(dist_mat)[lower.tri(dist_mat)]-(subset_weight*rep(1, n_dec))
@@ -171,12 +163,12 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
         aux = abs(outer(far_cov, far_cov, FUN = "-"))
         temp = as.vector(matrix(t(aux)[lower.tri(aux)], nrow = 1, byrow = TRUE))
         cols_ind_far_pairs = which(temp<far_pair)
-        if (length(cols_ind_far_pairs)>0) {
+        if (length(cols_ind_far_pairs) > 0) {
           rows_ind_far_pairs[[j]] = row_count+(1:length(cols_ind_far_pairs))
           vals_far_pairs = rep(1, length(cols_ind_far_pairs))
           row_count	= max(rows_ind_far_pairs[[j]])
         }
-        if (length(cols_ind_far_pairs)==0) {
+        else {
           cols_ind_far_pairs = NULL
           rows_ind_far_pairs[[j]] = -1
           vals_far_pairs = NULL
@@ -188,17 +180,17 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
         cols_far = c(cols_far, col_ind_far_all)
         vals_far = c(vals_far, vals_far_all)
       }
-      if (is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
+      else if (is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
         rows_far = c(rows_far, rows_ind_far_pairs[[j]])
         cols_far = c(cols_far, cols_ind_far_pairs)
         vals_far = c(vals_far, vals_far_pairs)
       }
-      if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
+      else if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
         rows_far = c(rows_far, row_ind_far_all, rows_ind_far_pairs[[j]])
         cols_far = c(cols_far, col_ind_far_all, cols_ind_far_pairs)
         vals_far = c(vals_far, vals_far_all, vals_far_pairs)
       }
-      if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] == -1)) {
+      else if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] == -1)) {
         rows_far = c(rows_far, row_ind_far_all)
         cols_far = c(cols_far, col_ind_far_all)
         vals_far = c(vals_far, vals_far_all)
@@ -264,12 +256,12 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
         aux = abs(outer(near_cov, near_cov, FUN = "-"))
         temp = as.vector(matrix(t(aux)[lower.tri(aux)], nrow = 1, byrow = TRUE))
         cols_ind_near_pairs = which(temp>near_pair)
-        if (length(cols_ind_near_pairs)>0) {
+        if (length(cols_ind_near_pairs) > 0) {
           rows_ind_near_pairs[[j]] = row_count+(1:length(cols_ind_near_pairs))
           vals_near_pairs = rep(1, length(cols_ind_near_pairs))
           row_count	= max(rows_ind_near_pairs[[j]])
         }
-        if (length(cols_ind_near_pairs)==0) {
+        else {
           cols_ind_near_pairs = NULL
           rows_ind_near_pairs[[j]] = -1
           vals_near_pairs = NULL
@@ -281,17 +273,17 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
         cols_near = c(cols_near, col_ind_near_all)
         vals_near = c(vals_near, vals_near_all)
       }
-      if (is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
+      else if (is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
         rows_near = c(rows_near, rows_ind_near_pairs[[j]])
         cols_near = c(cols_near, cols_ind_near_pairs)
         vals_near = c(vals_near, vals_near_pairs)
       }
-      if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
+      else if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
         rows_near = c(rows_near, row_ind_near_all, rows_ind_near_pairs[[j]])
         cols_near = c(cols_near, col_ind_near_all, cols_ind_near_pairs)
         vals_near = c(vals_near, vals_near_all, vals_near_pairs)
       }
-      if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] == -1)) {
+      else if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] == -1)) {
         rows_near = c(rows_near, row_ind_near_all)
         cols_near = c(cols_near, col_ind_near_all)
         vals_near = c(vals_near, vals_near_all)
@@ -332,7 +324,7 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
   #}
 
   #! Moment constraints
-  if (!is.null(mom_covs) & is.null(mom_targets)) {
+  if (!is.null(mom_covs) && is.null(mom_targets)) {
     rows_mom_1 = NA
     cols_mom_1 = NA
     vals_mom_1 = NA
@@ -372,7 +364,7 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
   }
 
   #! Moment Constraints Target
-  if (!is.null(mom_covs) & !is.null(mom_targets)) {
+  if (!is.null(mom_covs) && !is.null(mom_targets)) {
     n_covs_m = ncol(mom_covs)
     rows_target = sort(rep(1:(4*n_covs_m)+row_count, n_dec))
     for (i in 1:n_covs_m) {
@@ -468,7 +460,7 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
     n_near_fine_cats = ncol(near_fine_covs_2)
     j = 1
     for (i in 1:n_near_fine_cats) {
-      for(h in 1:2) {
+      for (h in 1:2) {
         rows_near_fine = c(rows_near_fine, rep(row_count+j, n_dec))
         cols_near_fine = c(cols_near_fine, 1:n_dec)
         dist_near_fine_cov = outer(near_fine_covs_2[, i], near_fine_covs_2[, i], "-")
@@ -506,7 +498,7 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
   Amat = cnstrn_mat
 
   #! bvec
-  bvec = rep(1,  length(table(rows_nbm)))
+  bvec = rep(1, length(table(rows_nbm)))
   #bvec = c(bvec, rep(0, length(table(rows_far_all))))
   #bvec = c(bvec, rep(0, length(table(rows_far_pairs))))
 
@@ -655,7 +647,7 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
       group_id = NA
       time = NA
     }
-    else if (out$status == 7 | out$status == 13){
+    else if (out$status == 7 || out$status == 13){
       if (out$status == 7){
         message("  Optimal matches found")
       }
@@ -956,6 +948,10 @@ nmatch = function(dist_mat, subset_weight = NULL, total_pairs = NULL,
 
   }
 
-  list(obj_total = obj_val, obj_dist_mat = obj_dist_mat, id_1 = id_1, id_2 = id_2,
-                group_id = group_id,time = time)
+  list(obj_total = obj_val,
+       obj_dist_mat = obj_dist_mat,
+       id_1 = id_1,
+       id_2 = id_2,
+       group_id = group_id,
+       time = time)
 }

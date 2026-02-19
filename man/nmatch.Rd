@@ -77,7 +77,7 @@ where \code{fine_covs} is a matrix where each column is a nominal covariate for 
 
 \code{approximate} is a scalar that determines the method of solution.  If \code{approximate = 1} (the default), an approximate solution is found via a relaxation of the original integer program.  This method of solution is faster than \code{approximate = 0}, but some balancing constraints may be violated to some extent.
 
-\code{round_cplex} is binary specific to \code{cplex}.  \code{round_cplex = 1} ensures that the solution found is integral by rounding and all the constraints are exactly statisfied; \code{round_cplex = 0} (the default) encodes there is no rounding which may return slightly infeasible integer solutions.
+\code{round_cplex} is binary specific to \code{cplex}.  \code{round_cplex = 1} ensures that the solution found is integral by rounding and all the constraints are exactly satisfied; \code{round_cplex = 0} (the default) encodes there is no rounding which may return slightly infeasible integer solutions.
 
 \code{trace} is a binary specific to \code{cplex} and \code{gurobi}.  \code{trace = 1} turns the optimizer output on.  The default is \code{trace = 0}.
 }
@@ -111,8 +111,7 @@ Matching Before Randomization," \emph{Biostatistics}, 5, 263-275.
 
 	Rosenbaum, P. R. (2010), \emph{Design of Observational Studies}, Springer.
 
-	Rosenbaum, P. R. (2012), "Optimal Matching of an Optimally Chosen Subset in Observa-
-tional studies," \emph{Journal of Computational and Graphical Statistics}, 21, 57-71.
+	Rosenbaum, P. R. (2012), "Optimal Matching of an Optimally Chosen Subset in Observational studies," \emph{Journal of Computational and Graphical Statistics}, 21, 57-71.
 
 	Yang. F., Zubizarreta, J. R., Small, D. S., Lorch, S. A., and Rosenbaum, P. R. (2014), "Dissonant Conclusions When Testing the Validity of an Instrumental Variable," \emph{The American Statistician}, 68, 253-263.
 

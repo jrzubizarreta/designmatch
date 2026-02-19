@@ -17,7 +17,7 @@
   diag(cv)[diag(cv) == 0] <- .01
   rat = sqrt(vuntied / diag(cv))
   cv = diag(rat) %*% cv %*% diag(rat)
-  out = matrix(NA, nrow = m, ncol = n - m)
+  out = matrix(NA_real_, nrow = m, ncol = n - m)
   Xc = X[z == 0, ]
   Xt = X[z == 1, ]
   rownames(out) = rownames(X)[z==1]

@@ -27,7 +27,7 @@
   }
   else {
     row_ind_1 = c(sort(rep(1:n_t, n_c)), 1:n_t)
-    col_ind_1 = 1:(n_tot+n_t)
+    col_ind_1 = 1:(n_tot + n_t)
     ones_1 = c(rep(1, n_tot), rep(-1*n_controls, n_t))
   }
 
@@ -40,24 +40,22 @@
 
   #! Parts 3 and 4: moments and K-S
   mom_ks_covs = NULL
-  if ((!is.null(mom_covs) & is.null(mom_targets)) | !is.null(ks_covs)) {
+  if ((!is.null(mom_covs) && is.null(mom_targets)) || !is.null(ks_covs)) {
     row_ind_3.4 = 0
     #! Number of moment covariates
     n_mom_covs = 0
-    if(!is.null(mom_covs) & is.null(mom_targets)) {
+    if (!is.null(mom_covs) && is.null(mom_targets)) {
       n_mom_covs = ncol(mom_covs)
     }
     #! Number of K-S covariates
-    n_ks_covs = 0
-    if(!is.null(ks_covs)) {
-      n_ks_covs = ncol(ks_covs)
-    }
+    n_ks_covs = NCOL(ks_covs)
+
     # Bind moment and K-S covariates
     if (!is.null(mom_covs) && is.null(mom_targets) && is.null(ks_covs_aux)) {
       mom_ks_covs = mom_covs
       mom_ks_tols = mom_tols
     }
-    if ((is.null(mom_covs) && is.null(mom_targets)) && !is.null(ks_covs_aux)) {
+    else if ((is.null(mom_covs) && is.null(mom_targets)) && !is.null(ks_covs_aux)) {
       mom_ks_covs = ks_covs_aux
       mom_ks_tols = NA
       for (i in 1:ncol(ks_covs)) {
@@ -65,7 +63,7 @@
       }
       mom_ks_tols = mom_ks_tols[-1]
     }
-    if ((!is.null(mom_covs) && is.null(mom_targets)) && !is.null(ks_covs_aux)) {
+    else if ((!is.null(mom_covs) && is.null(mom_targets)) && !is.null(ks_covs_aux)) {
       mom_ks_covs = cbind(mom_covs, ks_covs_aux)
       mom_ks_tols = mom_tols
       for (i in 1:ncol(ks_covs)) {
@@ -84,16 +82,16 @@
     k = 0
     for (i in 1:n_mom_ks_covs) {
       if (n_mom_covs != 0 && i <= n_mom_covs) {
-        if ((!is.null(mom_tols) & is.null(mom_targets)) | !is.null(ks_tols)) {
+        if ((!is.null(mom_tols) && is.null(mom_targets)) || !is.null(ks_tols)) {
           col_ind_3.4 = c(col_ind_3.4, rep(1:n_tot, 2))
         }
       }
       if (n_ks_covs != 0 && i > n_mom_covs) {
         if ((!is.null(mom_tols) && is.null(mom_targets)) || !is.null(ks_tols)) {
           col_ind_3.4 = c(col_ind_3.4, rep(1:n_tot, 2))
-          k = k+1
+          k = k + 1
           if (k >= max(ks_n_grid)) {
-            j = j+1
+            j = j + 1
             k = 0
           }
         }
@@ -282,17 +280,17 @@
         col_ind_9 = c(col_ind_9, col_ind_far_all)
         far_cov_vals_9 = c(far_cov_vals_9, vals_far_all)
       }
-      if (is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
+      else if (is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
         row_ind_9 = c(row_ind_9, rows_ind_far_pairs[[j]])
         col_ind_9 = c(col_ind_9, cols_ind_far_pairs)
         far_cov_vals_9 = c(far_cov_vals_9, vals_far_pairs)
       }
-      if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
+      else if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] != -1)) {
         row_ind_9 = c(row_ind_9, row_ind_far_all, rows_ind_far_pairs[[j]])
         col_ind_9 = c(col_ind_9, col_ind_far_all, cols_ind_far_pairs)
         far_cov_vals_9 = c(far_cov_vals_9, vals_far_all, vals_far_pairs)
       }
-      if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] == -1)) {
+      else if (!is.null(far_groups) && !is.null(far_pairs) && all(rows_ind_far_pairs[[j]] == -1)) {
         row_ind_9 = c(row_ind_9, row_ind_far_all)
         col_ind_9 = c(col_ind_9, col_ind_far_all)
         far_cov_vals_9 = c(far_cov_vals_9, vals_far_all)
@@ -323,13 +321,13 @@
         near_pair = near_pairs[j]
         aux = abs(outer(near_cov[t_ind==1], near_cov[t_ind==0], FUN = "-"))
         temp = as.vector(matrix(t(aux), nrow = 1, byrow = TRUE))
-        cols_ind_near_pairs = which(temp>near_pair)
-        if (length(cols_ind_near_pairs)>0) {
+        cols_ind_near_pairs = which(temp > near_pair)
+        if (length(cols_ind_near_pairs) > 0) {
           rows_ind_near_pairs[[j]] = row_ind_cur+(1:length(cols_ind_near_pairs))
           vals_near_pairs = rep(1, length(cols_ind_near_pairs))
           row_ind_cur	= max(rows_ind_near_pairs[[j]])
         }
-        if (length(cols_ind_near_pairs)==0) {
+        else {
           cols_ind_near_pairs = NULL
           rows_ind_near_pairs[[j]] = -1
           vals_near_pairs = NULL
@@ -341,17 +339,17 @@
         col_ind_10 = c(col_ind_10, col_ind_near_all)
         near_cov_vals_10 = c(near_cov_vals_10, vals_near_all)
       }
-      if (is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
+      else if (is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
         row_ind_10 = c(row_ind_10, rows_ind_near_pairs[[j]])
         col_ind_10 = c(col_ind_10, cols_ind_near_pairs)
         near_cov_vals_10 = c(near_cov_vals_10, vals_near_pairs)
       }
-      if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
+      else if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] != -1)) {
         row_ind_10 = c(row_ind_10, row_ind_near_all, rows_ind_near_pairs[[j]])
         col_ind_10 = c(col_ind_10, col_ind_near_all, cols_ind_near_pairs)
         near_cov_vals_10 = c(near_cov_vals_10, vals_near_all, vals_near_pairs)
       }
-      if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] == -1)) {
+      else if (!is.null(near_groups) && !is.null(near_pairs) && all(rows_ind_near_pairs[[j]] == -1)) {
         row_ind_10 = c(row_ind_10, row_ind_near_all)
         col_ind_10 = c(col_ind_10, col_ind_near_all)
         near_cov_vals_10 = c(near_cov_vals_10, vals_near_all)

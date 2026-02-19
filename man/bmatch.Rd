@@ -41,7 +41,7 @@
 
 \code{ks = list(covs = ks_covs, n_grid = ks_n_grid, tols = ks_tols)}.
 
-\code{ks_covs} is a matrix where each column is a covariate whose difference in a coarsened version of the Kolmogorov-Smirnov statistic between treated units and matched controls is to be constrained.  \code{ks_n_grid} is  scalar defining the number of equispaced grid points for calculating the Kolmogorov-Smirnov statistic between the distributions of the treated units and matched controls for the covariates in \code{ks_covs}.  The defaul is \code{ks_n_grid = 10} for the deciles of the empirical cumulative distribution functions of the treated units for the covariate in question.  \code{ks_tols} is a vector of tolerances for the maximum differences in means for the covariates defined in \code{ks_covs}.  Note that the length of \code{ks_tols} has to be equal to the number of columns of \code{ks_covs}.}
+\code{ks_covs} is a matrix where each column is a covariate whose difference in a coarsened version of the Kolmogorov-Smirnov statistic between treated units and matched controls is to be constrained.  \code{ks_n_grid} is  scalar defining the number of equispaced grid points for calculating the Kolmogorov-Smirnov statistic between the distributions of the treated units and matched controls for the covariates in \code{ks_covs}.  The default is \code{ks_n_grid = 10} for the deciles of the empirical cumulative distribution functions of the treated units for the covariate in question.  \code{ks_tols} is a vector of tolerances for the maximum differences in means for the covariates defined in \code{ks_covs}.  Note that the length of \code{ks_tols} has to be equal to the number of columns of \code{ks_covs}.}
 
 \item{exact}{Exact matching parameters: a list with one argument,
 
@@ -92,7 +92,7 @@ Optimization solver parameters: a list with four objects,
 
 \code{approximate} is a scalar that determines the method of solution.  If \code{approximate = 1} (the default), an approximate solution is found via a relaxation of the original integer program.  This method of solution is faster than \code{approximate = 0}, but some balancing constraints may be violated to some extent.  This option works only with \code{n_controls = 1}, i.e. pair matching.
 
-\code{round_cplex} is binary specific to \code{cplex}.  \code{round_cplex = 1} ensures that the solution found is integral by rounding and all the constraints are exactly statisfied; \code{round_cplex = 0} (the default) encodes there is no rounding which may return slightly infeasible integer solutions.
+\code{round_cplex} is binary specific to \code{cplex}.  \code{round_cplex = 1} ensures that the solution found is integral by rounding and all the constraints are exactly satisfied; \code{round_cplex = 0} (the default) encodes there is no rounding which may return slightly infeasible integer solutions.
 
 \code{trace} is a binary specific to \code{cplex} and \code{gurobi}. \code{trace = 1} turns the optimizer output on. The default is \code{trace = 0}.
 }
@@ -119,8 +119,7 @@ Optimization solver parameters: a list with four objects,
 
 	Rosenbaum, P. R. (2010), \emph{Design of Observational Studies}, Springer.
 
-	Rosenbaum, P. R. (2012), "Optimal Matching of an Optimally Chosen Subset in Observa-
-tional studies," \emph{Journal of Computational and Graphical Statistics}, 21, 57-71.
+	Rosenbaum, P. R. (2012), "Optimal Matching of an Optimally Chosen Subset in Observational studies," \emph{Journal of Computational and Graphical Statistics}, 21, 57-71.
 
 	Yang, D., Small, D., Silber, J. H., and Rosenbaum, P. R. (2012), "Optimal Matching With Minimal Deviation From Fine Balance in a Study of Obesity and Surgical Outcomes," \emph{Biometrics}, 68, 628-36.
 

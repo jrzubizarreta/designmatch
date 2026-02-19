@@ -10,7 +10,7 @@ distmat <- function(t_ind, X_mat, calip_cov = NULL, calip_size = NULL, calip_pen
   if (!is.null(near_exact_covs)) {
     for (i in seq_len(ncol(near_exact_covs))) {
       penalty_mat <- abs(outer(near_exact_covs[t_ind==1, i], near_exact_covs[t_ind==0, i], "-"))
-      penalty_mat <- (penalty_mat!=0) * near_exact_penalties[i]
+      penalty_mat <- (penalty_mat != 0) * near_exact_penalties[i]
       dist_mat <- dist_mat + penalty_mat
     }
   }

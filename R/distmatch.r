@@ -1,5 +1,5 @@
 #! distmatch
-distmatch = function(t_ind, dist_mat = NULL, solver = NULL) {
+distmatch <- function(t_ind, dist_mat = NULL, solver = NULL) {
 
   # Subset matching weight
   subset_weight = 0
@@ -12,7 +12,11 @@ distmatch = function(t_ind, dist_mat = NULL, solver = NULL) {
                total_groups = total_groups, solver = solver)
 
   #! Output
-  list(obj_total = out$obj_total, obj_dist_mat = out$obj_dist_mat,
-       t_id = out$t_id, c_id = out$c_id, group_id = out$group_id,
-       time = out$time, status = out$status)
+  list(obj_total = out$obj_total,
+       obj_dist_mat = out$obj_dist_mat,
+       t_id = out$t_id,
+       c_id = out$c_id,
+       group_id = out$group_id,
+       time = out$time,
+       status = out$status)
 }
