@@ -1,5 +1,5 @@
 # Solves relaxation problem
-.relaxation_b = function(n_t, n_c, coef, dist_mat, subset_weight, solver, round_cplex, trace) {
+.relaxation_b <- function(n_t, n_c, coef, dist_mat, subset_weight, solver, round_cplex, trace) {
 
   n_tot = n_t*n_c
   #! Part 1
@@ -37,8 +37,8 @@
   #! HiGHS
   if (solver == "highs") {
     message("  HiGHS optimizer is open...")
-    lhs = rep(-Inf, length(sense))
-    rhs = rep(Inf, length(sense))
+    lhs = rep.int(-Inf, length(sense))
+    rhs = rep.int(Inf, length(sense))
     lhs[sense == "G"] = bvec[sense == "G"]
     rhs[sense == "L"] = bvec[sense == "L"]
     lhs[sense == "E"] = bvec[sense == "E"]
@@ -59,7 +59,7 @@
                              maximum = TRUE)
     time = (proc.time()-ptm)[3]
 
-    if (out$status == 7 | out$status == 13){
+    if (out$status == 7 || out$status == 13){
       if (out$status == 7){
         message("  Optimal matches found")
       }

@@ -13,10 +13,10 @@
 
   #! Number of treated units and controls
   n_t = sum(t_ind)
-  n_c = length(t_ind)-n_t
+  n_c = length(t_ind) - n_t
 
   #! Number of dec. vars.
-  n_dec_vars = n_t*n_c
+  n_dec_vars = n_t * n_c
 
   #! Number of moment covariates
   n_mom_covs = 0
@@ -39,7 +39,7 @@
   if (is.null(ks_covs)) {
     max_ks_n_grid = 0
   }
-  if (!is.null(ks_covs)) {
+  else {
     max_ks_n_grid = max(ks_n_grid)
     #! Grid of values
     ks_grid = matrix(0, nrow = max_ks_n_grid, ncol = n_ks_covs)
@@ -68,7 +68,7 @@
       cvec = c(-(1*rep(1, n_t*n_c)), rep(0, n_t))
     }
   }
-  if (!is.null(dist_mat)) {
+  else {
     if (approximate == 1 || n_controls == 1) {
       cvec = as.vector(matrix(t(dist_mat), nrow = 1, byrow = TRUE))-(subset_weight*rep(1, n_t*n_c))
     }
@@ -215,7 +215,7 @@
   }
 
   #! Part 3b: Target
-  if (!is.null(mom_covs) & !is.null(mom_targets)) {
+  if (!is.null(mom_covs) && !is.null(mom_targets)) {
     sense = c(sense, rep("L", 4*n_mom_covs))
   }
 

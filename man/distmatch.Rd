@@ -31,7 +31,7 @@ Optimization solver parameters: a list with four objects,
 
 \code{approximate} is a scalar that determines the method of solution.  If \code{approximate = 1} (the default), an approximate solution is found via a relaxation of the original integer program.  This method of solution is faster than \code{approximate = 0}, but some balancing constraints may be violated to some extent.  This option works only with \code{n_controls = 1}, i.e. pair matching.
 
-\code{round_cplex} is binary specific to \code{cplex}.  \code{round_cplex = 1} ensures that the solution found is integral by rounding and all the constraints are exactly statisfied; \code{round_cplex = 0} (the default) encodes there is no rounding which may return slightly infeasible integer solutions.
+\code{round_cplex} is binary specific to \code{cplex}.  \code{round_cplex = 1} ensures that the solution found is integral by rounding and all the constraints are exactly satisfied; \code{round_cplex = 0} (the default) encodes there is no rounding which may return slightly infeasible integer solutions.
 
 \code{trace} is a binary specific to \code{cplex} and \code{gurobi}. \code{trace = 1} turns the optimizer output on. The default is \code{trace = 0}.
 }
@@ -83,9 +83,10 @@ quantiles = function(covar, n_q) {
 	val_q = quantile(covar, probs = p_q, na.rm = TRUE)
 	covar_out = rep(NA, length(covar))
 	for (i in 1:n_q) {
-		if (i==1) {covar_out[covar<val_q[i+1]] = i}
-		if (i>1 & i<n_q) {covar_out[covar>=val_q[i] & covar<val_q[i+1]] = i}
-		if (i==n_q) {covar_out[covar>=val_q[i] & covar<=val_q[i+1]] = i}}
+		if (i == 1) {covar_out[covar < val_q[i+1]] = i}
+		else if (i < n_q) {covar_out[covar >= val_q[i] & covar < val_q[i+1]] = i}
+		else {covar_out[covar >= val_q[i] & covar <= val_q[i+1]] = i}
+	}
 	covar_out
 }
 age_5 = quantiles(age, 5)

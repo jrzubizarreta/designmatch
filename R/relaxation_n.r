@@ -1,12 +1,12 @@
 # Solves relaxation problem
-.relaxation_n = function(n_tot, coef, dist_mat, subset_weight, solver, round_cplex, trace) {
+.relaxation_n <- function(n_tot, coef, dist_mat, subset_weight, solver, round_cplex, trace) {
 
   n_dec = (n_tot*(n_tot-1))-sum(1:(n_tot-1))
   #! Nonbipartite matching constraints
   rows_nbm = sort(rep(1:n_tot, n_tot-1))
   temp = matrix(0, nrow = n_tot, ncol = n_tot)
   temp[lower.tri(temp)] = 1:n_dec
-  temp = temp+t(temp)
+  temp = temp + t(temp)
   diag(temp) = NA
   cols_nbm = as.vector(t(temp))
   cols_nbm = cols_nbm[!is.na(cols_nbm)]
@@ -26,15 +26,15 @@
 
   #! HiGHS
   if (solver == "highs") {
-    lhs = rep(-Inf, length(sense))
-    rhs = rep(Inf, length(sense))
+    lhs = rep.int(-Inf, length(sense))
+    rhs = rep.int(Inf, length(sense))
     lhs[sense == "G"] = bvec[sense == "G"]
     rhs[sense == "L"] = bvec[sense == "L"]
     lhs[sense == "E"] = bvec[sense == "E"]
     rhs[sense == "E"] = bvec[sense == "E"]
 
-    types = vtype
-    types[types=="B"] = "I"
+    types <- vtype
+    types[types=="B"] <- "I"
 
     message("  Finding the optimal matches...")
     ptm = proc.time()
@@ -47,21 +47,26 @@
                              types = types,
                              maximum = TRUE)
     time = (proc.time()-ptm)[3]
-    if (out$status == 8) {
-      message("  Error: problem infeasible!")
-      obj = 0
-      sol = NULL
-    }
-
-    else if (out$status == 7 | out$status == 13){
+    if (out$status %in% c(7, 13)) {
       if (out$status == 7){
         message("  Optimal matches found")
       }
-      else if (out$status == 13){
+      else {
         message("  Time limit reached!")
       }
+
       sol = out$primal_solution
       obj = sum((t(dist_mat)[lower.tri(dist_mat)]-(subset_weight*rep(1, n_dec))) * (round(out$primal_solution, 1e-10) == 1))
+    }
+    else {
+      outmessage <- {
+        if (out$status == 8) "  Error: problem infeasible!"
+        else paste0("  Error: HiGHS solver message: ", out$status_message)
+      }
+      message(outmessage)
+
+      obj = 0
+      sol = NULL
     }
   }
 

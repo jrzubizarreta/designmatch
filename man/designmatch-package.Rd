@@ -33,8 +33,7 @@ Kilcioglu, C., & Zubizarreta, J. R. (2016). "Maximizing the information content 
 
 	Rosenbaum, P. R. (2010), \emph{Design of Observational Studies}, Springer.
 
-	Rosenbaum, P. R. (2012), "Optimal Matching of an Optimally Chosen Subset in Observa-
-tional studies," \emph{Journal of Computational and Graphical Statistics}, 21, 57-71.
+	Rosenbaum, P. R. (2012), "Optimal Matching of an Optimally Chosen Subset in Observational studies," \emph{Journal of Computational and Graphical Statistics}, 21, 57-71.
 
 	Yang, D., Small, D., Silber, J. H., and Rosenbaum, P. R. (2012), "Optimal Matching With Minimal Deviation From Fine Balance in a Study of Obesity and Surgical Outcomes," \emph{Biometrics}, 68, 628-636.
 

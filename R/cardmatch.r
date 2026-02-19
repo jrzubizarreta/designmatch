@@ -2,39 +2,30 @@
 cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
 
   if (is.null(mom)) {
-    mom_covs = NULL
-    mom_tols = NULL
-    mom_targets = NULL
-  }
-  else {
-    mom_covs = mom$covs
-    mom_tols = mom$tols
-    if (is.null(mom$targets)) {
-      mom_targets = NULL
-    }
-    else {
-      mom_targets = mom$targets
-    }
-  }
-  if (is.null(fine)) {
-    fine_covs = NULL
-  }
-  else {
-    fine_covs = fine$covs
+    mom <- list()
   }
 
+  mom_covs <- mom$covs
+  mom_tols <- mom$tols
+  mom_targets <- mom$targets
+
+  if (is.null(fine)) {
+    fine <- list()
+  }
+
+  fine_covs <- fine$covs
+
   if (is.null(solver)) {
-    t_max = 60 * 15
-    approximate = 1
-    solver = "highs"
+    solver <- list(t_max = 60 * 15,
+                   approximate = 1,
+                   name = "highs")
   }
-  else {
-    t_max = solver$t_max
-    approximate = solver$approximate
-    trace = solver$trace
-    round_cplex = solver$round_cplex
-    solver = solver$name
-  }
+
+  t_max <- solver$t_max
+  approximate <- solver$approximate
+  trace <- solver$trace
+  round_cplex <- solver$round_cplex
+  solver <- solver$name
 
   #! CALL ERROR HANDLING
 
@@ -78,8 +69,13 @@ cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
                              control = highs::highs_control(time_limit = t_max))
     time = (proc.time()-ptm)[3]
 
-    if (out$status == 7){
-      message("  Optimal matches found")
+    if (out$status %in% c(7, 13)) {
+      if (out$status == 7) {
+        message("  Optimal matches found")
+      }
+      else {
+        message("  Time limit reached!")
+      }
 
       #! Matched units indexes
       t_id = (1:n_dec_vars)[t_ind==1 & round(out$primal_solution, 1e-10)==1]
@@ -91,28 +87,13 @@ cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
       #! Optimal value of the objective function
       obj_total = out$objective_value
     }
-    else if (out$status == 8) {
-      message("  Error: problem infeasible!")
-      obj_total = NA
-      id = NA
-      time = NA
-    }
-    else if (out$status == 13) {
-      message("  Time limit reached!")
-
-      #! Matched units indexes
-      t_id = (1:n_dec_vars)[t_ind==1 & round(out$primal_solution, 1e-10)==1]
-      c_id = (1:n_dec_vars)[t_ind==0 & round(out$primal_solution, 1e-10)==1]
-
-      #! Group (or pair) identifier
-      group_id = c(1:(length(t_id)), 1:(length(c_id)))
-
-      #! Optimal value of the objective function
-      obj_total = out$objective_value
-    }
-    else{
-      outmessage = paste0("  Error: HiGHS solver message: ", out$status_message)
+    else {
+      outmessage <- {
+        if (out$status == 8) "  Error: problem infeasible!"
+        else paste0("  Error: HiGHS solver message: ", out$status_message)
+      }
       message(outmessage)
+
       obj_total = NA
       id = NA
       time = NA
@@ -130,7 +111,7 @@ cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
     model$modelsense = 'max'
     model$obj = cvec
     model$A = Amat
-    model$sense = rep(NA, length(sense))
+    model$sense = rep.int(NA_character_, length(sense))
     model$sense[sense=="E"] = '='
     model$sense[sense=="L"] = '<='
     model$sense[sense=="G"] = '>='
@@ -144,7 +125,7 @@ cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
     out = gurobi::gurobi(model, t_lim)
     time = (proc.time()-ptm)[3]
 
-    if (out$status %in%  c("OPTIMAL", "TIME_LIMIT")) {
+    if (out$status %in% c("OPTIMAL", "TIME_LIMIT")) {
       if (out$status == "OPTIMAL") {
         message("  Optimal matches found")
       }
@@ -278,25 +259,7 @@ cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
     out= Rsymphony::Rsymphony_solve_LP(cvec, Amat, dir, bvec, types = vtype, max = TRUE, time_limit = t_max)
     time = (proc.time()-ptm)[3]
 
-    if (out$status==228) {
-      message("  Error: problem exceeded the time limit and no feasible solution is found!")
-      obj_total = NA
-      obj_dist_mat = NA
-      t_id = NA
-      c_id = NA
-      group_id = NA
-      time = NA
-    }
-    else if (out$status!=0) {
-      message("  Error: problem infeasible!")
-      obj_total = NA
-      obj_dist_mat = NA
-      t_id = NA
-      c_id = NA
-      group_id = NA
-      time = NA
-    }
-    else {
+    if (out$status == 0) {
       message("  Optimal matches found")
 
       #! Matched units indexes
@@ -309,8 +272,27 @@ cardmatch = function(t_ind, mom = NULL, fine = NULL, solver = NULL) {
       #! Optimal value of the objective function
       obj_total = out$objval
     }
+    else {
+      if (out$status == 228) {
+        message("  Error: problem exceeded the time limit and no feasible solution is found!")
+      }
+      else {
+        message("  Error: problem infeasible!")
+      }
+
+      obj_total = NA
+      obj_dist_mat = NA
+      t_id = NA
+      c_id = NA
+      group_id = NA
+      time = NA
+    }
   }
 
   #! Output
-  list(obj_total = obj_total, t_id = t_id, c_id = c_id, group_id = group_id, time = time)
+  list(obj_total = obj_total,
+       t_id = t_id,
+       c_id = c_id,
+       group_id = group_id,
+       time = time)
 }

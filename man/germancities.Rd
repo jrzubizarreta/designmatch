@@ -21,38 +21,38 @@
 		The next 15 columns are the covariates:
 
 		\itemize{
-			\item log2pop, logarithm base 2 of the population in each city in 1939;
+			\item \code{log2pop}, logarithm base 2 of the population in each city in 1939;
 
-			\item popgrowth1939, population growth in each city from 1919 to 1939;
+			\item \code{popgrowth1939}, population growth in each city from 1919 to 1939;
 
-			\item popgrowth3339, population growth in each city from 1919 to 1939;
+			\item \code{popgrowth3339}, population growth in each city from 1919 to 1939;
 
-			\item emprate, employment rates in each city in 1939;
+			\item \code{emprate}, employment rates in each city in 1939;
 
-			\item indrate, industry rates in each city in 1939;
+			\item \code{indrate}, industry rates in each city in 1939;
 
-			\item rubble, amount of rubble in cubic meters per capita in each city in 1939;
+			\item \code{rubble}, amount of rubble in cubic meters per capita in each city in 1939;
 
-			\item rubblemiss, missing data indicator for rubble; the missing values were imputed with the mean;
+			\item \code{rubblemiss}, missing data indicator for rubble; the missing values were imputed with the mean;
 
-			\item flats, number of destroyed dwellings in each city in 1939 as a percentage of the stock of dwelling;
+			\item \code{flats}, number of destroyed dwellings in each city in 1939 as a percentage of the stock of dwelling;
 
-			\item flatsmiss, missing data indicator for flats; the missing values were imputed with the mean;
+			\item \code{flatsmiss}, missing data indicator for flats; the missing values were imputed with the mean;
 
-			\item refugees, proportion of each city's population that identified themselves as refugees in 1939;
+			\item \code{refugees}, proportion of each city's population that identified themselves as refugees in 1939;
 
-			\item educat, categories for the employment rates in the educational sector in each city in 1939;
+			\item \code{educat}, categories for the employment rates in the educational sector in each city in 1939;
 
-			\item publicat, categories for the employment rates in the public administration sector in each city in 1939;
+			\item \code{publicat}, categories for the employment rates in the public administration sector in each city in 1939;
 
-			\item busiservcat, categories for the employment rates in the bussiness services sector in each city in 1939;
+			\item \code{busiservcat}, categories for the employment rates in the business services sector in each city in 1939;
 
-			\item mineralcat, categories for the employment rates in the minerals sector in each city in 1939;
+			\item \code{mineralcat}, categories for the employment rates in the minerals sector in each city in 1939;
 
-			\item transcat, categories for the employment rates in the transport sector in each city in 1939.
+			\item \code{transcat}, categories for the employment rates in the transport sector in each city in 1939.
 		}
 
-		The last five columns of the data frame are outcomes: pop50, pop60, pop70, pop80 and pop88, the populations in each city in 1950, 1960, 1970, 1980 and 1988, respectively.
+		The last five columns of the data frame are outcomes: \code{pop50}, \code{pop60}, \code{pop70}, \code{pop80} and \code{pop88}, the populations in each city in 1950, 1960, 1970, 1980, and 1988, respectively.
 		}
 
 \source{\doi{10.1257/aer.98.5.1766}}
